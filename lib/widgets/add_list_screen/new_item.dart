@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gest_prod_river/providers/item_list_provider.dart';
 
 import '../../models/item.dart';
 import 'text_forms/amount_item_form.dart';
@@ -7,14 +9,14 @@ import 'text_forms/price_market_form.dart';
 import 'text_forms/price_paid_form.dart';
 import 'text_forms/title_form.dart';
 
-class NewItem extends StatefulWidget {
+class NewItem extends ConsumerStatefulWidget {
   const NewItem({super.key});
 
   @override
-  State<NewItem> createState() => _NewItemState();
+  NewItemState createState() => NewItemState();
 }
 
-class _NewItemState extends State<NewItem> {
+class NewItemState extends ConsumerState<NewItem> {
   final _modalFormKey = GlobalKey<FormState>();
   final TextEditingController? _imageUrlController = TextEditingController();
 
@@ -35,7 +37,8 @@ class _NewItemState extends State<NewItem> {
     }
     _modalFormKey.currentState?.save();
     try {
-      //TODO: add item in list method ->
+      //add item in list method ->
+      ref.read(itemListProvider.notifier).addItemInList(_tempItem);
     } catch (e) {
       throw e;
     }

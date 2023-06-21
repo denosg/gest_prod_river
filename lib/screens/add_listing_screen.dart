@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gest_prod_river/providers/item_list_provider.dart';
+import 'package:gest_prod_river/widgets/add_list_screen/added_item.dart';
 import 'package:intl/intl.dart';
 
 import '../models/listing.dart';
 import '../widgets/add_list_screen/new_item.dart';
 
-class AddListingScreen extends StatefulWidget {
+class AddListingScreen extends ConsumerStatefulWidget {
   static const routeName = '/add-listing-screen';
 
   @override
-  State<AddListingScreen> createState() => _AddListingScreenState();
+  AddListingScreenState createState() => AddListingScreenState();
 }
 
-class _AddListingScreenState extends State<AddListingScreen> {
+class AddListingScreenState extends ConsumerState<AddListingScreen> {
   final _imageUrlController = TextEditingController();
   final _form = GlobalKey<FormState>();
 
@@ -101,7 +104,10 @@ class _AddListingScreenState extends State<AddListingScreen> {
 
   @override
   Widget build(BuildContext context) {
+    //get the device size
     final deviceSize = MediaQuery.of(context).size;
+    // list of items
+    var itemList = ref.watch(itemListProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -174,7 +180,11 @@ class _AddListingScreenState extends State<AddListingScreen> {
                       // here will come the list of items
                       Container(
                         height: (deviceSize.height - kToolbarHeight) / 2,
-                        //TODO: USE ref.watch to see the items in the list scrollable list of items
+                        child: ListView.builder(
+                          itemBuilder: (context, index) =>
+                              AddedItem(itemInfo: itemList[index]),
+                          itemCount: itemList.length,
+                        ),
                       ),
                       // TODO: insert sum money paid logic here -> this will update with the new changes (setState) when adding a new item
                       Padding(
