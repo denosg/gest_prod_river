@@ -1,14 +1,20 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'firebase_options.dart';
 
 import '/theme/theme.dart';
 import '/screens/listings_overview_screen.dart';
 import '/screens/add_listing_screen.dart';
 
-void main() {
-  //Makes it so SystemChrome.setPreferredOrientations works
+void main() async {
+  //Makes it so the system is ready to work
   WidgetsFlutterBinding.ensureInitialized();
+  //wait for firebase init
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   //Sets preffered orientations
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   //Runs the app on boot
