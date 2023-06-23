@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "571409563488",
+    "firebase_url": "https://gestionare-produse-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "gestionare-produse",
+    "storage_bucket": "gestionare-produse.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:571409563488:android:a365421a88f3d81d28e805",
+        "android_client_info": {
+          "package_name": "com.example.gest_prod_river"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "571409563488-01ehednaeedfp5hb67uu4vcrlpbu24p8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDB3Z_lv-s9u_uGjSqZSHhUtDU7EhuAfAI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "571409563488-01ehednaeedfp5hb67uu4vcrlpbu24p8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
