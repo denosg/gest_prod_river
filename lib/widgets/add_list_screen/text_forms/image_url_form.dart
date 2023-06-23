@@ -59,6 +59,17 @@ class _ImageUrlFormState extends State<ImageUrlForm> {
           setState(() {
             finalImageUrl = imageUrl;
           });
+          // updates the widget with the image url
+          if (finalImageUrl != null) {
+            Item updatedItem = Item(
+              title: widget.tempItem.title,
+              photoUrl: finalImageUrl!,
+              pricePaid: widget.tempItem.pricePaid,
+              priceMarket: widget.tempItem.priceMarket,
+              amountOfItem: widget.tempItem.amountOfItem,
+            );
+            widget.onSave(updatedItem);
+          }
         } else {
           print('No image selected.');
         }
@@ -78,7 +89,7 @@ class _ImageUrlFormState extends State<ImageUrlForm> {
                   color: Colors.black54,
                   size: 50,
                 )
-              : Image.network(finalImageUrl),
+              : Image.network('$finalImageUrl.jpg'),
         ),
       ),
     );
