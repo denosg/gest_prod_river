@@ -189,12 +189,14 @@ class AddListingScreenState extends ConsumerState<AddListingScreen> {
                       // TODO: insert sum money paid logic here -> this will update with the new changes (setState) when adding a new item
                       Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Text('Total amount paid money: '),
+                        child: Text(
+                            'Total amount paid money: ${ref.watch(itemListProvider.notifier).getPaidSum()}'),
                       ),
                       // TODO: insert potential money logic here -> this will update with the new changes (setState) when adding a new item
                       Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Text('Potential money win: '),
+                        child: Text(
+                            'Potential money win: ${ref.watch(itemListProvider.notifier).getMarketSum()}'),
                       ),
                     ],
                   ),

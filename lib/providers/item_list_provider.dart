@@ -10,4 +10,20 @@ class ItemListNotifier extends StateNotifier<List<Item>> {
   void addItemInList(Item currentItem) {
     state.insert(0, currentItem);
   }
+
+  double getPaidSum() {
+    double sum = 0.0;
+    for (var item in state) {
+      sum = sum + item.pricePaid * item.amountOfItem;
+    }
+    return sum;
+  }
+
+  double getMarketSum() {
+    double sum = 0.0;
+    for (var item in state) {
+      sum = sum + item.priceMarket * item.amountOfItem;
+    }
+    return sum;
+  }
 }

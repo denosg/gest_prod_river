@@ -6,7 +6,7 @@ class AppTheme {
   static ThemeData lightTheme = ThemeData(
     brightness: Brightness.light,
     colorScheme: ColorScheme.light(
-      primary: Colors.white,
+      primary: Colors.blue,
       secondary: Colors.black,
       tertiary: createMaterialColor(const Color.fromRGBO(226, 229, 222, 1)),
     ),
