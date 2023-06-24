@@ -139,7 +139,6 @@ class AddListingScreenState extends ConsumerState<AddListingScreen> {
                                 color:
                                     Theme.of(context).colorScheme.secondary)),
                         textInputAction: TextInputAction.next,
-                        autofocus: true,
                         // gets the introduced string
                         onSaved: (title) {
                           if (title != null) {
@@ -190,13 +189,13 @@ class AddListingScreenState extends ConsumerState<AddListingScreen> {
                           itemCount: itemList.length,
                         ),
                       ),
-                      // TODO: insert sum money paid logic here -> this will update with the new changes (setState) when adding a new item
+                      // total amount paid money shown
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
                             'Total amount paid money: ${ref.watch(itemListProvider.notifier).getPaidSum()}'),
                       ),
-                      // TODO: insert potential money logic here -> this will update with the new changes (setState) when adding a new item
+                      // total amount potential win money shown
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(

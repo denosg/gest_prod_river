@@ -10,20 +10,21 @@ class ImageUrlForm extends StatefulWidget {
   final Item tempItem;
   final Function(Item) onSave;
 
-  const ImageUrlForm({super.key, required this.tempItem, required this.onSave});
+  const ImageUrlForm({Key? key, required this.tempItem, required this.onSave})
+      : super(key: key);
 
   @override
   State<ImageUrlForm> createState() => _ImageUrlFormState();
 }
 
 class _ImageUrlFormState extends State<ImageUrlForm> {
+  bool isImageLoaded = false;
+  String? finalImageUrl;
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
-
-    File? uploadImage;
-    String? finalImageUrl;
 
     // get image from phone gallery method
     Future<File?> getImage() async {
@@ -52,31 +53,33 @@ class _ImageUrlFormState extends State<ImageUrlForm> {
       return downloadUrl;
     }
 
-    return InkWell(
-      // onTap uploads image to cloud db and retrives link to show
-      onTap: () async {
-        uploadImage = await getImage();
-        if (uploadImage != null) {
-          final imageUrl = await uploadImageToFirebase(uploadImage!);
-          print('Image uploaded successfully. URL: $imageUrl');
-          setState(() {
-            finalImageUrl = imageUrl;
-          });
-          // updates the widget with the image url
-          if (finalImageUrl != null) {
-            Item updatedItem = Item(
-              title: widget.tempItem.title,
-              photoUrl: finalImageUrl!,
-              pricePaid: widget.tempItem.pricePaid,
-              priceMarket: widget.tempItem.priceMarket,
-              amountOfItem: widget.tempItem.amountOfItem,
-            );
-            widget.onSave(updatedItem);
-          }
-        } else {
-          print('No image selected.');
+    Future<void> showcaseImage() async {
+      final uploadImage = await getImage();
+      if (uploadImage != null) {
+        final imageUrl = await uploadImageToFirebase(uploadImage);
+        print('Image uploaded successfully. URL: $imageUrl');
+        setState(() {
+          finalImageUrl = imageUrl;
+          isImageLoaded = true;
+        });
+        // updates the widget with the image url
+        if (finalImageUrl != null) {
+          Item updatedItem = Item(
+            title: widget.tempItem.title,
+            photoUrl: finalImageUrl!,
+            pricePaid: widget.tempItem.pricePaid,
+            priceMarket: widget.tempItem.priceMarket,
+            amountOfItem: widget.tempItem.amountOfItem,
+          );
+          widget.onSave(updatedItem);
         }
-      },
+      } else {
+        print('No image selected.');
+      }
+    }
+
+    return InkWell(
+      onTap: showcaseImage,
       child: Container(
         width: width * 0.5,
         height: height * 0.15,
@@ -84,17 +87,21 @@ class _ImageUrlFormState extends State<ImageUrlForm> {
         margin: EdgeInsets.symmetric(
             horizontal: width * 0.2, vertical: height * 0.01),
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(6), color: Colors.grey[300]),
+          borderRadius: BorderRadius.circular(6),
+          color: Colors.grey[300],
+        ),
         child: Center(
-          child: finalImageUrl == null
-              ? const Icon(
+          child: isImageLoaded
+              ? Image.network(
+                  finalImageUrl!,
+                  width: double.infinity,
+                  height: double.infinity,
+                  fit: BoxFit.cover,
+                )
+              : const Icon(
                   Icons.image,
                   color: Colors.black54,
                   size: 50,
-                )
-              : Image.network(
-                  finalImageUrl,
-                  key: ValueKey(finalImageUrl),
                 ),
         ),
       ),
