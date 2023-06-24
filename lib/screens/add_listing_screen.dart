@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gest_prod_river/widgets/add_list_screen/total_paid.dart';
+import 'package:gest_prod_river/widgets/add_list_screen/total_win.dart';
 
 import '../models/listing.dart';
 import '../widgets/add_list_screen/new_item.dart';
@@ -137,17 +139,9 @@ class AddListingScreenState extends ConsumerState<AddListingScreen> {
                         ),
                       ),
                       // total amount paid money shown
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                            'Total amount paid money: ${ref.watch(itemListProvider.notifier).getPaidSum()}'),
-                      ),
+                      TotalPaid(),
                       // total amount potential win money shown
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                            'Potential money win: ${ref.watch(itemListProvider.notifier).getMarketSum()}'),
-                      ),
+                      TotalWin(),
                     ],
                   ),
                 ),
