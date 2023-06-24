@@ -29,9 +29,43 @@ class NewItemState extends ConsumerState<NewItem> {
     });
   }
 
+  // show alert dialog if user didnt provide an image
+  void showAlertDialog() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          elevation: 20,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+          title: const Text('There seems to be a problem.',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              )),
+          content: const Text('Please provide an image.'),
+          // Options for the user regarding the alert dialog
+          actions: [
+            // YES -> closes the alert dialog
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('Ok'),
+            )
+          ],
+        );
+      },
+    );
+  }
+
   Future<void> _saveForm() async {
     final isValid = _modalFormKey.currentState?.validate();
     if (isValid == false || isValid == null) {
+      return;
+    }
+    if (_tempItem.photoUrl == '') {
+      showAlertDialog();
       return;
     }
     _modalFormKey.currentState?.save();

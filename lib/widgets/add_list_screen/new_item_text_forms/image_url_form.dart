@@ -78,11 +78,48 @@ class _ImageUrlFormState extends State<ImageUrlForm> {
       }
     }
 
+    // show alert dialog if user didnt provide an image
+    void showAlertDialog() {
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            elevation: 20,
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+            title: const Text('There seems to be a problem.',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                )),
+            content: const Text('Please provide an image.'),
+            // Options for the user regarding the alert dialog
+            actions: [
+              // YES -> closes the alert dialog
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text('Ok'),
+              )
+            ],
+          );
+        },
+      );
+    }
+
     return Padding(
       padding: EdgeInsets.symmetric(
           vertical: height * 0.02, horizontal: width * 0.25),
       child: InkWell(
-        onTap: showcaseImage,
+        onTap: () async {
+          // upload + retrieve photo from cloud db
+          await showcaseImage();
+          // if not given photo, show alert dialog
+          if (finalImageUrl == null) {
+            showAlertDialog();
+          }
+        },
         child: Container(
           width: width * 0.5,
           height: height * 0.15,
