@@ -78,31 +78,33 @@ class _ImageUrlFormState extends State<ImageUrlForm> {
       }
     }
 
-    return InkWell(
-      onTap: showcaseImage,
-      child: Container(
-        width: width * 0.5,
-        height: height * 0.15,
-        padding: EdgeInsets.all(width * 0.03),
-        margin: EdgeInsets.symmetric(
-            horizontal: width * 0.2, vertical: height * 0.01),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(6),
-          color: Colors.grey[300],
-        ),
-        child: Center(
-          child: isImageLoaded
-              ? Image.network(
-                  finalImageUrl!,
-                  width: double.infinity,
-                  height: double.infinity,
-                  fit: BoxFit.cover,
-                )
-              : const Icon(
-                  Icons.image,
-                  color: Colors.black54,
-                  size: 50,
-                ),
+    return Padding(
+      padding: EdgeInsets.symmetric(
+          vertical: height * 0.02, horizontal: width * 0.25),
+      child: InkWell(
+        onTap: showcaseImage,
+        child: Container(
+          width: width * 0.5,
+          height: height * 0.15,
+          padding: EdgeInsets.all(width * 0.03),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(6),
+            color: Colors.grey[300],
+          ),
+          child: Center(
+            child: isImageLoaded
+                ? Image.network(
+                    finalImageUrl!,
+                    width: double.infinity,
+                    height: double.infinity,
+                    fit: BoxFit.cover,
+                  )
+                : const Icon(
+                    Icons.image,
+                    color: Colors.black54,
+                    size: 50,
+                  ),
+          ),
         ),
       ),
     );
