@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gest_prod_river/providers/item_list_provider.dart';
+import 'package:gest_prod_river/screens/listings_overview_screen.dart';
 import 'package:gest_prod_river/widgets/add_list_screen/added_item.dart';
 import 'package:intl/intl.dart';
 
@@ -52,7 +53,11 @@ class AddListingScreenState extends ConsumerState<AddListingScreen> {
     }
     _form.currentState?.save();
     try {
-      // adding listing to db logic here ->
+      //TODO: adding listing to db logic here ->
+
+      //After uploading liting to db, the user is prompted the ListingsScreen
+      Navigator.of(context)
+          .pushReplacementNamed(ListingsOverviewScreen.routeName);
     } catch (error) {
       await showDialog<void>(
           context: context,
@@ -72,7 +77,6 @@ class AddListingScreenState extends ConsumerState<AddListingScreen> {
     setState(() {
       _isLoading = false;
     });
-    Navigator.of(context).pop();
   }
 
   // calendar picker for user

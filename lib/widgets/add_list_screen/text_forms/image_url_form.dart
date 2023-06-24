@@ -27,8 +27,9 @@ class _ImageUrlFormState extends State<ImageUrlForm> {
 
     // get image from phone gallery method
     Future<File?> getImage() async {
-      final picker = ImagePicker();
-      final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+      final ImagePicker picker = ImagePicker();
+      final XFile? pickedFile =
+          await picker.pickImage(source: ImageSource.gallery);
 
       if (pickedFile != null) {
         return File(pickedFile.path);
@@ -41,9 +42,11 @@ class _ImageUrlFormState extends State<ImageUrlForm> {
     Future<String> uploadImageToFirebase(File image) async {
       final storage = FirebaseStorage.instance;
       final imageName = DateTime.now().millisecondsSinceEpoch.toString();
+      //Create a reference for the image to be stored + storage root
       final reference = storage.ref().child('images/$imageName.jpg');
-
+      //Store the file
       await reference.putFile(image);
+      //Success: get download URL
       final downloadUrl = await reference.getDownloadURL();
 
       return downloadUrl;
@@ -89,7 +92,10 @@ class _ImageUrlFormState extends State<ImageUrlForm> {
                   color: Colors.black54,
                   size: 50,
                 )
-              : Image.network('$finalImageUrl.jpg'),
+              : Image.network(
+                  finalImageUrl,
+                  key: ValueKey(finalImageUrl),
+                ),
         ),
       ),
     );

@@ -4,6 +4,7 @@ import '../widgets/listing_screen/add_button.dart';
 import '../widgets/listing_screen/products_list.dart';
 
 class ListingsOverviewScreen extends StatelessWidget {
+  static const routeName = '/listings-overview-screen';
   const ListingsOverviewScreen({super.key});
 
   @override
