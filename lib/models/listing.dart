@@ -14,4 +14,18 @@ class Listing {
     required this.amount,
     required this.itemList,
   });
+
+  String printItemList() {
+    String itemsInList = '';
+    for (var item in itemList) {
+      itemsInList = itemsInList + " " + item.toString();
+    }
+    return itemsInList;
+  }
+
+  @override
+  String toString() {
+    return "Listing: id: $id, title: $title, dateTime: $dateTime, amount: $amount"
+        "list of items: $printItemList";
+  }
 }

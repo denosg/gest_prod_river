@@ -64,6 +64,7 @@ class NewItemState extends ConsumerState<NewItem> {
     if (isValid == false || isValid == null) {
       return;
     }
+    // verifies if user uploaded image or not, if NOT the user will be prompted to please upload a picture
     if (_tempItem.photoUrl == '') {
       showAlertDialog();
       return;

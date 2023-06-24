@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:gest_prod_river/providers/item_list_provider.dart';
-import 'package:gest_prod_river/screens/listings_overview_screen.dart';
-import 'package:gest_prod_river/widgets/add_list_screen/added_item.dart';
-import 'package:gest_prod_river/widgets/add_list_screen/listing_title_form.dart';
-import 'package:intl/intl.dart';
 
 import '../models/listing.dart';
 import '../widgets/add_list_screen/new_item.dart';
+import '/providers/item_list_provider.dart';
+import '/screens/listings_overview_screen.dart';
+import '/widgets/add_list_screen/added_item.dart';
+import '/widgets/add_list_screen/choose_date_form.dart';
+import '/widgets/add_list_screen/listing_title_form.dart';
 
 class AddListingScreen extends ConsumerStatefulWidget {
   static const routeName = '/add-listing-screen';
@@ -19,9 +19,6 @@ class AddListingScreen extends ConsumerStatefulWidget {
 class AddListingScreenState extends ConsumerState<AddListingScreen> {
   final _imageUrlController = TextEditingController();
   final _form = GlobalKey<FormState>();
-
-  // current date for calendar
-  DateTime _selectedDate = DateTime.now();
 
   // loading spinner logic
   var _isLoading = false;
@@ -80,22 +77,6 @@ class AddListingScreenState extends ConsumerState<AddListingScreen> {
     });
   }
 
-  // calendar picker for user
-  void _presentDatePicker() {
-    showDatePicker(
-            context: context,
-            initialDate: DateTime.now(),
-            firstDate: DateTime(2023),
-            lastDate: DateTime.now())
-        .then((chosenDate) {
-      if (chosenDate == null) {
-        return;
-      } else {
-        _selectedDate = chosenDate;
-      }
-    });
-  }
-
   // modal bottoom sheet when entering new item in the list
   void _startAddNewItem(BuildContext context) {
     showModalBottomSheet(
@@ -142,29 +123,10 @@ class AddListingScreenState extends ConsumerState<AddListingScreen> {
                       ListingTitleForm(
                           onSave: saveStateOfTextField, listing: _tempListing),
                       // calendar picker for app
-                      Container(
-                        // color: Colors.red,
-                        height: 70,
-                        child: Row(
-                          children: [
-                            Text(_selectedDate == null
-                                ? 'No date chosen !'
-                                : DateFormat.yMMMd().format(_selectedDate)),
-                            MaterialButton(
-                              onPressed: _presentDatePicker,
-                              child: const Text(
-                                'Choose date',
-                                style: TextStyle(
-                                  color: Colors.amber,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
+                      ChooseDateForm(
+                          listing: _tempListing, onSave: saveStateOfTextField),
                       // here will come the list of items
-                      Container(
+                      SizedBox(
                         height: (deviceSize.height - kToolbarHeight) / 2,
                         child: ListView.builder(
                           itemBuilder: (context, index) =>
