@@ -12,6 +12,8 @@ import '/widgets/add_list_screen/listing_title_form.dart';
 class AddListingScreen extends ConsumerStatefulWidget {
   static const routeName = '/add-listing-screen';
 
+  const AddListingScreen({super.key});
+
   @override
   AddListingScreenState createState() => AddListingScreenState();
 }

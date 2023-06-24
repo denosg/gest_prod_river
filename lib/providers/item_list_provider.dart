@@ -8,7 +8,10 @@ class ItemListNotifier extends StateNotifier<List<Item>> {
   ItemListNotifier() : super([]);
 
   void addItemInList(Item currentItem) {
-    state.insert(0, currentItem);
+    print('Item added in list.');
+    final updatedList = [...state];
+    updatedList.insert(0, currentItem);
+    state = updatedList;
   }
 
   double getPaidSum() {
