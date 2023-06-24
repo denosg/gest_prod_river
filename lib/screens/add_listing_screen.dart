@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gest_prod_river/providers/item_list_provider.dart';
 import 'package:gest_prod_river/screens/listings_overview_screen.dart';
 import 'package:gest_prod_river/widgets/add_list_screen/added_item.dart';
+import 'package:gest_prod_river/widgets/add_list_screen/listing_title_form.dart';
 import 'package:intl/intl.dart';
 
 import '../models/listing.dart';
@@ -106,6 +107,13 @@ class AddListingScreenState extends ConsumerState<AddListingScreen> {
     );
   }
 
+  void saveStateOfTextField(Listing updatedListing) {
+    setState(() {
+      _tempListing =
+          updatedListing; // Update _tempListing with the updatedListing from MyTextForm
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     //get the device size
@@ -127,37 +135,12 @@ class AddListingScreenState extends ConsumerState<AddListingScreen> {
               // TODO: move form widget in separate file
               child: Form(
                 key: _form,
-                // title of the listing that will show in the list
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      TextFormField(
-                        autocorrect: false,
-                        decoration: InputDecoration(
-                            labelText: 'Title',
-                            labelStyle: TextStyle(
-                                color:
-                                    Theme.of(context).colorScheme.secondary)),
-                        textInputAction: TextInputAction.next,
-                        // gets the introduced string
-                        onSaved: (title) {
-                          if (title != null) {
-                            _tempListing = Listing(
-                              id: _tempListing.id,
-                              title: title,
-                              dateTime: _tempListing.dateTime,
-                              amount: _tempListing.amount,
-                              itemList: _tempListing.itemList,
-                            );
-                          }
-                        },
-                        validator: (value) {
-                          if (value == '') {
-                            return 'Please provide a value';
-                          }
-                          return null;
-                        },
-                      ),
+                      // title of the listing that will show in the list
+                      ListingTitleForm(
+                          onSave: saveStateOfTextField, listing: _tempListing),
                       // calendar picker for app
                       Container(
                         // color: Colors.red,

@@ -3,11 +3,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gest_prod_river/providers/item_list_provider.dart';
 
 import '../../models/item.dart';
-import 'text_forms/amount_item_form.dart';
-import 'text_forms/image_url_form.dart';
-import 'text_forms/price_market_form.dart';
-import 'text_forms/price_paid_form.dart';
-import 'text_forms/title_form.dart';
+import 'new_item_text_forms/amount_item_form.dart';
+import 'new_item_text_forms/image_url_form.dart';
+import 'new_item_text_forms/price_market_form.dart';
+import 'new_item_text_forms/price_paid_form.dart';
+import 'new_item_text_forms/title_form.dart';
 
 class NewItem extends ConsumerStatefulWidget {
   const NewItem({super.key});

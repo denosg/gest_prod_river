@@ -1,34 +1,35 @@
+
 import 'package:flutter/material.dart';
 
 import '../../../models/item.dart';
 
-class TitleForm extends StatefulWidget {
+class PriceMarketForm extends StatefulWidget {
   final Item tempItem;
   final Function(Item) onSave;
 
-  const TitleForm({required this.tempItem, required this.onSave});
+  const PriceMarketForm({required this.tempItem, required this.onSave});
 
   @override
-  State<TitleForm> createState() => _TitleFormState();
+  State<PriceMarketForm> createState() => _PriceMarketFormState();
 }
 
-class _TitleFormState extends State<TitleForm> {
+class _PriceMarketFormState extends State<PriceMarketForm> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
 
     return Container(
-      width: width * 0.8,
+      width: width * 0.4,
       height: height * 0.07,
       padding: EdgeInsets.all(width * 0.03),
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(6), color: Colors.grey[300]),
+          borderRadius: BorderRadius.circular(6), color: Colors.orange[300]),
       child: Center(
         child: Row(
           children: <Widget>[
             const Icon(
-              Icons.title,
+              Icons.attach_money,
               color: Colors.black54,
             ),
             SizedBox(
@@ -38,19 +39,19 @@ class _TitleFormState extends State<TitleForm> {
               child: TextFormField(
                 autocorrect: false,
                 decoration: const InputDecoration.collapsed(
-                  hintText: 'Item Title',
+                  hintText: 'Price Sell',
                   hintStyle: TextStyle(color: Colors.black54),
                 ),
                 textInputAction: TextInputAction.next,
-                autofocus: true,
+                keyboardType: TextInputType.number,
                 // gets the introduced string
                 onChanged: (enteredString) {
                   if (enteredString != '') {
                     Item updatedItem = Item(
-                      title: enteredString,
+                      title: widget.tempItem.title,
                       photoUrl: widget.tempItem.photoUrl,
                       pricePaid: widget.tempItem.pricePaid,
-                      priceMarket: widget.tempItem.priceMarket,
+                      priceMarket: double.parse(enteredString),
                       amountOfItem: widget.tempItem.amountOfItem,
                     );
 
@@ -59,7 +60,17 @@ class _TitleFormState extends State<TitleForm> {
                 },
                 validator: (value) {
                   if (value == '') {
-                    return 'Please provide a value';
+                    return 'Please enter the money';
+                  }
+                  if (value != null) {
+                    if (int.tryParse(value) == null) {
+                      return 'Please enter a valid number';
+                    }
+                  }
+                  if (value != null) {
+                    if (int.parse(value) <= 0) {
+                      return 'Please enter a number > 0';
+                    }
                   }
                   return null;
                 },
