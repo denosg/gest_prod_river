@@ -18,7 +18,7 @@ class Listing {
   String printItemList() {
     String itemsInList = '';
     for (var item in itemList) {
-      itemsInList = itemsInList + " " + item.toString();
+      itemsInList = "$itemsInList $item";
     }
     return itemsInList;
   }

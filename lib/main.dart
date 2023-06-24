@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
       home: const ListingsOverviewScreen(),
       routes: {
         //add listing screen
-        AddListingScreen.routeName: (context) => AddListingScreen(),
+        AddListingScreen.routeName: (context) => const AddListingScreen(),
         //listing overview screen
         ListingsOverviewScreen.routeName: (context) =>
             const ListingsOverviewScreen(),
