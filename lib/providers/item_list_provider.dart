@@ -29,4 +29,8 @@ class ItemListNotifier extends StateNotifier<List<Item>> {
     }
     return sum;
   }
+
+  void deleteList() {
+    state = [];
+  }
 }

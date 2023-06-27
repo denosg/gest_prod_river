@@ -102,7 +102,6 @@ class AddListingScreenState extends ConsumerState<AddListingScreen> {
         itemList: itemList,
       );
       saveStateOfTextField(updatedListing);
-      print(_tempListing);
 
       //After uploading liting to db, the user is prompted the ListingsScreen
       Navigator.of(context)
