@@ -4,6 +4,7 @@ import 'package:gest_prod_river/providers/listing_list_provider.dart';
 import 'package:gest_prod_river/widgets/add_list_screen/total_paid.dart';
 import 'package:gest_prod_river/widgets/add_list_screen/total_win.dart';
 
+import '../models/item.dart';
 import '../models/listing.dart';
 import '../widgets/add_list_screen/new_item.dart';
 import '/providers/item_list_provider.dart';
@@ -73,6 +74,16 @@ class AddListingScreenState extends ConsumerState<AddListingScreen> {
     );
   }
 
+  // gets the amount of items in list ->
+  int getAmountOfItmes() {
+    int amount = 0;
+    var itemList = ref.watch(itemListProvider);
+    for (Item item in itemList) {
+      amount += item.amountOfItem;
+    }
+    return amount;
+  }
+
   // save form method
   Future<void> _saveForm() async {
     isLoading();
@@ -97,7 +108,7 @@ class AddListingScreenState extends ConsumerState<AddListingScreen> {
         id: _tempListing.id,
         title: _tempListing.title,
         dateTime: _tempListing.dateTime,
-        amount: _tempListing.amount,
+        amount: getAmountOfItmes(),
         itemList: itemList,
       );
       //TODO: adding listing to cloud db logic here ->

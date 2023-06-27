@@ -4,7 +4,7 @@ class Listing {
   final String id;
   final String title;
   final DateTime dateTime;
-  final double amount;
+  final int amount;
   final List<Item> itemList;
 
   Listing({
