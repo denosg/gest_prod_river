@@ -4,6 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../providers/item_list_provider.dart';
 
 class TotalWin extends ConsumerWidget {
+  const TotalWin({super.key});
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     double width = MediaQuery.of(context).size.width;

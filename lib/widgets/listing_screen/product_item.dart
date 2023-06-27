@@ -9,7 +9,8 @@ class ProductItem extends StatelessWidget {
   final double amount;
 
   const ProductItem(
-      {required this.id,
+      {super.key,
+      required this.id,
       required this.title,
       required this.dateTime,
       required this.amount});

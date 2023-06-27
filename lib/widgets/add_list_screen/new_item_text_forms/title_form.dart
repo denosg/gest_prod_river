@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import '../../../models/item.dart';
@@ -7,7 +6,7 @@ class TitleForm extends StatefulWidget {
   final Item tempItem;
   final Function(Item) onSave;
 
-  const TitleForm({required this.tempItem, required this.onSave});
+  const TitleForm({super.key, required this.tempItem, required this.onSave});
 
   @override
   State<TitleForm> createState() => _TitleFormState();

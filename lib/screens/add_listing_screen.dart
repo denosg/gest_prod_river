@@ -117,7 +117,7 @@ class AddListingScreenState extends ConsumerState<AddListingScreen> {
       ref.read(listingListProvider.notifier).addListingInList(_tempListing);
       // deletes the list from memory to show for the next listing input
       ref.read(itemListProvider.notifier).deleteList();
-
+      print(_tempListing.toString());
       //After uploading liting to db, the user is prompted the ListingsScreen
       Navigator.of(context)
           .pushReplacementNamed(ListingsOverviewScreen.routeName);

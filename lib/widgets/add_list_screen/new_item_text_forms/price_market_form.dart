@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import '../../../models/item.dart';
@@ -7,7 +6,8 @@ class PriceMarketForm extends StatefulWidget {
   final Item tempItem;
   final Function(Item) onSave;
 
-  const PriceMarketForm({required this.tempItem, required this.onSave});
+  const PriceMarketForm(
+      {super.key, required this.tempItem, required this.onSave});
 
   @override
   State<PriceMarketForm> createState() => _PriceMarketFormState();

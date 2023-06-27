@@ -14,7 +14,7 @@ class ListingsOverviewScreen extends StatelessWidget {
         centerTitle: true,
         title: const Text('Listings', style: TextStyle(fontSize: 24)),
       ),
-      body: ProductsList(),
+      body: const ProductsList(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: const AddButton(),
     );

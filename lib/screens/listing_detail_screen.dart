@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 class ListingDetailsScreen extends StatelessWidget {
   static const routeName = "/listing-details-screen";
 
+  const ListingDetailsScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     // get the id of the specific listing from the list of listings

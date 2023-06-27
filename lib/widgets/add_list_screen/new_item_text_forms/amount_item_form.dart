@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 
 import '../../../models/item.dart';
 
-// TODO: Ask forum how to fix issue
-
 class AmountItemForm extends StatefulWidget {
   final Item tempItem;
   final Function(Item) onSave;
 
-  const AmountItemForm({required this.tempItem, required this.onSave});
+  const AmountItemForm(
+      {super.key, required this.tempItem, required this.onSave});
 
   @override
   State<AmountItemForm> createState() => _AmountItemFormState();

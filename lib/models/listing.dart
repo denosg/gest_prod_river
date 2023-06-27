@@ -26,6 +26,6 @@ class Listing {
   @override
   String toString() {
     return "Listing: id: $id, title: $title, dateTime: $dateTime, amount: $amount"
-        "list of items: $printItemList";
+        "list of items: ${printItemList()}";
   }
 }

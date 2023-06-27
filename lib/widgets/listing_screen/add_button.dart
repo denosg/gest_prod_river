@@ -16,7 +16,6 @@ class AddButton extends StatelessWidget {
       ),
       child: IconButton(
         splashRadius: 40,
-        // TODO: go to add new listing screen
         onPressed: () {
           Navigator.of(context).pushNamed(AddListingScreen.routeName);
         },

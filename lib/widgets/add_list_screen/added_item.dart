@@ -5,7 +5,7 @@ import '../../models/item.dart';
 class AddedItem extends StatelessWidget {
   final Item itemInfo;
 
-  const AddedItem({required this.itemInfo});
+  const AddedItem({super.key, required this.itemInfo});
 
   @override
   Widget build(BuildContext context) {

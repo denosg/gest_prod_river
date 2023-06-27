@@ -76,7 +76,6 @@ class NewItemState extends ConsumerState<NewItem> {
     } catch (e) {
       rethrow;
     }
-    print('ItemInfo: ${_tempItem.toString()}');
     Navigator.of(context).pop();
   }
 
