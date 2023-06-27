@@ -102,6 +102,8 @@ class AddListingScreenState extends ConsumerState<AddListingScreen> {
         itemList: itemList,
       );
       saveStateOfTextField(updatedListing);
+      // deletes the list from memory to show for the next listing input
+      ref.read(itemListProvider.notifier).deleteList();
 
       //After uploading liting to db, the user is prompted the ListingsScreen
       Navigator.of(context)
