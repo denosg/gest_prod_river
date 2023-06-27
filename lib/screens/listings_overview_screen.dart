@@ -12,17 +12,7 @@ class ListingsOverviewScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            // bani investiti
-            Text('invest: '),
-            // profit (recuperat - bani investiti)
-            Text('profit: '),
-            // recuperat
-            Text('recuperat: '),
-          ],
-        ),
+        title: const Text('Listings', style: TextStyle(fontSize: 24)),
       ),
       body: ProductsList(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,

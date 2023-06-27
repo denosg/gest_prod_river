@@ -21,7 +21,6 @@ class AddListingScreen extends ConsumerStatefulWidget {
 }
 
 class AddListingScreenState extends ConsumerState<AddListingScreen> {
-  final _imageUrlController = TextEditingController();
   final _form = GlobalKey<FormState>();
 
   // loading spinner logic
@@ -37,25 +36,73 @@ class AddListingScreenState extends ConsumerState<AddListingScreen> {
     itemList: [],
   );
 
-  // clear the memory regarding the controller
-  @override
-  void dispose() {
-    _imageUrlController.dispose();
-    super.dispose();
+  void isLoading() {
+    setState(() {
+      _isLoading = !_isLoading;
+    });
+  }
+
+  // show alert dialog if user didnt provide any items for the listing
+  void showAlertDialog() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          elevation: 20,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+          title: const Text('There seems to be a problem.',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              )),
+          content: const Text('Please provide items for the listing.'),
+          // Options for the user regarding the alert dialog
+          actions: [
+            // YES -> closes the alert dialog
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('Ok'),
+            )
+          ],
+        );
+      },
+    );
   }
 
   // save form method
   Future<void> _saveForm() async {
-    setState(() {
-      _isLoading = true;
-    });
+    isLoading();
+    // check if the form is valid ->
     final isValid = _form.currentState?.validate();
     if (isValid == false || isValid == null) {
+      isLoading();
+      return;
+    }
+    // check if the user added any items in the listing ->
+    var itemList = ref.watch(itemListProvider);
+    if (itemList.isEmpty) {
+      // show alert dialog to prompt the user to add items ->
+      isLoading();
+      showAlertDialog();
       return;
     }
     _form.currentState?.save();
     try {
-      //TODO: adding listing to db logic here ->
+      //TODO: adding listing to cloud + local db logic here ->
+
+      // save the item list
+      Listing updatedListing = Listing(
+        id: _tempListing.id,
+        title: _tempListing.title,
+        dateTime: _tempListing.dateTime,
+        amount: _tempListing.amount,
+        itemList: itemList,
+      );
+      saveStateOfTextField(updatedListing);
+      print(_tempListing);
 
       //After uploading liting to db, the user is prompted the ListingsScreen
       Navigator.of(context)
@@ -76,9 +123,7 @@ class AddListingScreenState extends ConsumerState<AddListingScreen> {
                 ],
               ));
     }
-    setState(() {
-      _isLoading = false;
-    });
+    isLoading();
   }
 
   // modal bottoom sheet when entering new item in the list
@@ -117,7 +162,6 @@ class AddListingScreenState extends ConsumerState<AddListingScreen> {
           ? const Center(child: CircularProgressIndicator())
           : Padding(
               padding: const EdgeInsets.all(10),
-              // TODO: move form widget in separate file
               child: Form(
                 key: _form,
                 child: SingleChildScrollView(
