@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gest_prod_river/providers/listing_list_provider.dart';
 import 'package:gest_prod_river/widgets/add_list_screen/total_paid.dart';
 import 'package:gest_prod_river/widgets/add_list_screen/total_win.dart';
 
@@ -91,8 +92,6 @@ class AddListingScreenState extends ConsumerState<AddListingScreen> {
     }
     _form.currentState?.save();
     try {
-      //TODO: adding listing to cloud + local db logic here ->
-
       // save the item list
       Listing updatedListing = Listing(
         id: _tempListing.id,
@@ -101,7 +100,10 @@ class AddListingScreenState extends ConsumerState<AddListingScreen> {
         amount: _tempListing.amount,
         itemList: itemList,
       );
+      //TODO: adding listing to cloud db logic here ->
       saveStateOfTextField(updatedListing);
+      // adds listing in local memory ->
+      ref.read(listingListProvider.notifier).addListingInList(_tempListing);
       // deletes the list from memory to show for the next listing input
       ref.read(itemListProvider.notifier).deleteList();
 
