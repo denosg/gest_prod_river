@@ -9,6 +9,11 @@ final listingListProvider =
 class ListingListNotifier extends StateNotifier<List<Listing>> {
   ListingListNotifier() : super([]);
 
+  // find listing by id method ->
+  Listing findById(String id) {
+    return state.firstWhere((listing) => listing.id == id);
+  }
+
   // method for adding the listing in firebase cloud db + in local memory ->
   void addListingInList(Listing currentListing) async {
     DatabaseReference databaseRef =
@@ -17,6 +22,7 @@ class ListingListNotifier extends StateNotifier<List<Listing>> {
     DatabaseReference newListingRef = databaseRef.push();
     String itemId = newListingRef.key!;
 
+    //json data to send to cloud db ->
     Map<String, dynamic> newListingData = {
       'id': itemId,
       'title': currentListing.title,
@@ -56,8 +62,29 @@ class ListingListNotifier extends StateNotifier<List<Listing>> {
     }
   }
 
-  // find listing by id method ->
-  Listing findById(String id) {
-    return state.firstWhere((listing) => listing.id == id);
+  // deleteListing method for deleting a specific listing from cloud db + local memory ->
+  void deleteListing(String id) async {
+    DatabaseReference databaseRef =
+        FirebaseDatabase.instance.ref().child('listings');
+
+    // Find the index of the listing with the given ID in the state
+    int listingIndex = state.indexWhere((listing) => listing.id == id);
+
+    if (listingIndex != -1) {
+      try {
+        // Delete the listing from the Firebase Cloud Database
+        await databaseRef.child(id).remove();
+        print('Listing deleted from Firebase successfully!');
+
+        // Remove the listing from the local memory state
+        final updatedList = [...state];
+        updatedList.removeAt(listingIndex);
+        state = updatedList;
+
+        print('Listing deleted from local memory state.');
+      } catch (error) {
+        print('Failed to delete listing from Firebase: $error');
+      }
+    }
   }
 }
