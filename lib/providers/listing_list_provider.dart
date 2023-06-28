@@ -9,6 +9,7 @@ final listingListProvider =
 class ListingListNotifier extends StateNotifier<List<Listing>> {
   ListingListNotifier() : super([]);
 
+  // method for adding the listing in firebase cloud db + in local memory ->
   void addListingInList(Listing currentListing) async {
     DatabaseReference databaseRef =
         FirebaseDatabase.instance.ref().child('listings');
@@ -53,5 +54,10 @@ class ListingListNotifier extends StateNotifier<List<Listing>> {
     } catch (error) {
       print('Failed to add listing to Firebase: $error');
     }
+  }
+
+  // find listing by id method ->
+  Listing findById(String id) {
+    return state.firstWhere((listing) => listing.id == id);
   }
 }
