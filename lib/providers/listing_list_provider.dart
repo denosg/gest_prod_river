@@ -14,6 +14,8 @@ class ListingListNotifier extends StateNotifier<List<Listing>> {
     return state.firstWhere((listing) => listing.id == id);
   }
 
+  // method for fetching the listings from the Firebase Cloud Database
+
   // method for adding the listing in firebase cloud db + in local memory ->
   void addListingInList(Listing currentListing) async {
     DatabaseReference databaseRef =

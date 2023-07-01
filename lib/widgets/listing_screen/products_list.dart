@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'listing_item.dart';
 
-class ProductsList extends StatelessWidget {
+class ProductsList extends ConsumerStatefulWidget {
   const ProductsList({super.key});
 
+  @override
+  ProductsListState createState() => ProductsListState();
+}
+
+class ProductsListState extends ConsumerState<ProductsList> {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
