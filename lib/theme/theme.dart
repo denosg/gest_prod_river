@@ -7,7 +7,7 @@ class AppTheme {
     brightness: Brightness.light,
     colorScheme: ColorScheme.light(
       primary: Colors.blue,
-      secondary: Colors.black,
+      secondary: Colors.white,
       tertiary: createMaterialColor(const Color.fromRGBO(226, 229, 222, 1)),
     ),
     pageTransitionsTheme: const PageTransitionsTheme(

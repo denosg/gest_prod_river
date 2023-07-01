@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gest_prod_river/models/item.dart';
+import 'package:gest_prod_river/widgets/listing_screen/slideable_images_card.dart';
+import 'package:intl/intl.dart';
 
 import '../../screens/listing_detail_screen.dart';
 
@@ -27,6 +29,9 @@ class ListingItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final scaffoldMessenger = ScaffoldMessenger.of(context);
     final deviceSize = MediaQuery.of(context).size;
+
+    //formatted date
+    String formattedDate = DateFormat('dd:MM:yyyy').format(dateTime);
     return InkWell(
       onLongPress: () async {
         try {
@@ -35,20 +40,20 @@ class ListingItem extends StatelessWidget {
             context: context,
             builder: (context) {
               return AlertDialog(
-                title: const Text('Esti sigur ?'),
-                content: const Text('Vrei sa stergi lista ?'),
+                title: const Text('Are you sure ?'),
+                content: const Text('Do you want to delete the listing ?'),
                 // Options for the user regarding deleting a quest
                 actions: [
                   TextButton(
                     onPressed: () => Navigator.of(context).pop(false),
-                    child: const Text('Nu'),
+                    child: const Text('No'),
                   ),
                   TextButton(
                     onPressed: () {
                       // TODO: delete logic here
                       Navigator.of(context).pop();
                     },
-                    child: const Text('Da'),
+                    child: const Text('Yes'),
                   )
                 ],
               );
@@ -61,32 +66,55 @@ class ListingItem extends StatelessWidget {
       },
       // onTap shows the listing details screen based on the listing's id
       onTap: () => _showListingDetails(id, context),
-      child: Padding(
-        padding: const EdgeInsets.all(8),
-        child: SizedBox(
-          width: double.infinity,
-          height: deviceSize.height / 7,
-          child: Card(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15),
-            ),
-            elevation: 10,
-            child: Center(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: ListTile(
-                  leading: ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: Image.network(
-                        'https://ae01.alicdn.com/kf/H3c5b317b00d042e296c30dfaddc55c25o/2020-New-Arrival-1-Piece-High-Quality-ABS-Retractable-Nurse-Badge-Holder-Reel-Reel-Elegant-Hospital.jpg_50x50.jpg_.webp'),
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15),
+        ),
+        elevation: 5,
+        margin: const EdgeInsets.all(15),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Column(
+              children: [
+                // the slideable images of each item from the listing to display
+                SlideableImagesCard(itemList: itemList),
+                // the title of the listing
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    title,
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.secondary,
+                      fontSize: deviceSize.width * 0.3,
+                    ),
                   ),
-                  title: Text(title),
-                  subtitle: Text(dateTime.toIso8601String()),
-                  trailing: Text(amount.toString()),
+                ),
+                // the date of the listing
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    formattedDate,
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.secondary,
+                      fontSize: deviceSize.width * 0.15,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            // the amount of items
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                amount.toString(),
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.secondary,
+                  fontSize: deviceSize.width * 0.2,
                 ),
               ),
             ),
-          ),
+          ],
         ),
       ),
     );
