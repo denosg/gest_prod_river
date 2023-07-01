@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 
 import '../../screens/listing_detail_screen.dart';
 
-class ProductItem extends StatelessWidget {
+class ListingItem extends StatelessWidget {
   final String id;
   final String title;
   final DateTime dateTime;
   final double amount;
 
-  const ProductItem(
+  const ListingItem(
       {super.key,
       required this.id,
       required this.title,
