@@ -26,19 +26,21 @@ class _SlideableImagesCardState extends State<SlideableImagesCard> {
       alignment: Alignment.center,
       children: [
         // carousel of images
-        CarouselSlider.builder(
-          carouselController: _controller,
-          options: CarouselOptions(
-              enlargeCenterPage: true,
-              aspectRatio: 2.0,
-              onPageChanged: (index, reason) {
-                setState(() {
-                  _current = index;
-                });
-              }),
-          itemCount: widget.itemList.length,
-          itemBuilder: (context, index, realIndex) =>
-              Image.network(photosList[index]),
+        Expanded(
+          child: CarouselSlider.builder(
+            carouselController: _controller,
+            options: CarouselOptions(
+                enlargeCenterPage: true,
+                aspectRatio: 2.0,
+                onPageChanged: (index, reason) {
+                  setState(() {
+                    _current = index;
+                  });
+                }),
+            itemCount: widget.itemList.length,
+            itemBuilder: (context, index, realIndex) =>
+                Image.network(photosList[index]),
+          ),
         ),
         // the indicator of images
         Positioned(

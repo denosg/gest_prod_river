@@ -18,15 +18,17 @@ class ProductsListState extends ConsumerState<ProductsList> {
     final listingsList = ref.watch(listingListProvider);
 
     return FutureBuilder(
-      //TODO: add the fetching listings list future here ->
+      future:
+          ref.read(listingListProvider.notifier).fetchListingsFromDatabase(),
       builder: (context, snapshot) =>
           snapshot.connectionState == ConnectionState.active
               ? const Center(
                   child: CircularProgressIndicator(),
                 )
               : RefreshIndicator(
-                  //TODO: add the fetching listings list future here ->
-                  onRefresh: () async {},
+                  onRefresh: () async => ref
+                      .read(listingListProvider.notifier)
+                      .fetchListingsFromDatabase(),
                   child: ListView.builder(
                     itemBuilder: (context, index) {
                       return ListingItem(

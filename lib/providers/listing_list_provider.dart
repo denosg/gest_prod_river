@@ -2,6 +2,8 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gest_prod_river/models/listing.dart';
 
+import '../models/item.dart';
+
 final listingListProvider =
     StateNotifierProvider<ListingListNotifier, List<Listing>>(
         (ref) => ListingListNotifier());
@@ -15,6 +17,46 @@ class ListingListNotifier extends StateNotifier<List<Listing>> {
   }
 
   // method for fetching the listings from the Firebase Cloud Database
+  Future<void> fetchListingsFromDatabase() async {
+    DatabaseReference databaseRef =
+        FirebaseDatabase.instance.ref().child('listings');
+
+    try {
+      DatabaseEvent event = await databaseRef.once();
+
+      Map<dynamic, dynamic>? data = event.snapshot.value as Map?;
+
+      // TODO: FIX PROBLEM: Failed to fetch listings from Firebase: type 'int' is not a subtype of type 'String'
+
+      if (data != null) {
+        List<Listing> fetchedListings = [];
+
+        data.forEach((key, value) {
+          Listing fetchedListing = Listing(
+            id: key,
+            title: value['title'],
+            dateTime: DateTime.parse(value['dateTime']),
+            amount: int.parse(value['amount']),
+            itemList: (value['items'] as List<dynamic>).map((itemData) {
+              return Item(
+                title: itemData['title'],
+                photoUrl: itemData['photoUrl'],
+                pricePaid: double.parse(itemData['pricePaid']),
+                priceMarket: double.parse(itemData['priceMarket']),
+                amountOfItem: int.parse(itemData['amount']),
+              );
+            }).toList(),
+          );
+
+          fetchedListings.add(fetchedListing);
+        });
+        state = fetchedListings;
+        print('Listings fetched from Firebase successfully!');
+      }
+    } catch (error) {
+      print('Failed to fetch listings from Firebase: $error');
+    }
+  }
 
   // method for adding the listing in firebase cloud db + in local memory ->
   void addListingInList(Listing currentListing) async {

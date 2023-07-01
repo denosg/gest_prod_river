@@ -66,55 +66,59 @@ class ListingItem extends StatelessWidget {
       },
       // onTap shows the listing details screen based on the listing's id
       onTap: () => _showListingDetails(id, context),
-      child: Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15),
-        ),
-        elevation: 5,
-        margin: const EdgeInsets.all(15),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Column(
-              children: [
-                // the slideable images of each item from the listing to display
-                SlideableImagesCard(itemList: itemList),
-                // the title of the listing
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    title,
-                    style: TextStyle(
-                      color: Theme.of(context).colorScheme.secondary,
-                      fontSize: deviceSize.width * 0.3,
+      child: SizedBox(
+        height: deviceSize.height * 0.3,
+        width: deviceSize.width * 0.9,
+        child: Card(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
+          ),
+          elevation: 5,
+          margin: const EdgeInsets.all(15),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Column(
+                children: [
+                  // the slideable images of each item from the listing to display
+                  SlideableImagesCard(itemList: itemList),
+                  // the title of the listing
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      title,
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.secondary,
+                        fontSize: deviceSize.width * 0.3,
+                      ),
                     ),
                   ),
-                ),
-                // the date of the listing
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    formattedDate,
-                    style: TextStyle(
-                      color: Theme.of(context).colorScheme.secondary,
-                      fontSize: deviceSize.width * 0.15,
+                  // the date of the listing
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      formattedDate,
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.secondary,
+                        fontSize: deviceSize.width * 0.15,
+                      ),
                     ),
                   ),
-                ),
-              ],
-            ),
-            // the amount of items
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                amount.toString(),
-                style: TextStyle(
-                  color: Theme.of(context).colorScheme.secondary,
-                  fontSize: deviceSize.width * 0.2,
+                ],
+              ),
+              // the amount of items
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  amount.toString(),
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.secondary,
+                    fontSize: deviceSize.width * 0.2,
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
