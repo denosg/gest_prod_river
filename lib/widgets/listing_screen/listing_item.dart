@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gest_prod_river/models/item.dart';
 
 import '../../screens/listing_detail_screen.dart';
 
@@ -6,14 +7,17 @@ class ListingItem extends StatelessWidget {
   final String id;
   final String title;
   final DateTime dateTime;
-  final double amount;
+  final int amount;
+  final List<Item> itemList;
 
-  const ListingItem(
-      {super.key,
-      required this.id,
-      required this.title,
-      required this.dateTime,
-      required this.amount});
+  const ListingItem({
+    super.key,
+    required this.id,
+    required this.title,
+    required this.dateTime,
+    required this.amount,
+    required this.itemList,
+  });
 
   void _showListingDetails(String id, BuildContext ctx) {
     Navigator.of(ctx).pushNamed(ListingDetailsScreen.routeName, arguments: id);

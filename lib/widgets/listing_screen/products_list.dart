@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gest_prod_river/providers/listing_list_provider.dart';
 
 import 'listing_item.dart';
 
@@ -13,17 +14,32 @@ class ProductsList extends ConsumerStatefulWidget {
 class ProductsListState extends ConsumerState<ProductsList> {
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemBuilder: (context, index) {
-        // TODO: gonna build each product item based on the List<Listings> with each id from firebase
-        return ListingItem(
-          id: 'asjkldas',
-          title: 'test',
-          dateTime: DateTime.now(),
-          amount: 100,
-        );
-      },
-      itemCount: 1,
+    // watch the list changes
+    final listingsList = ref.watch(listingListProvider);
+
+    return FutureBuilder(
+      //TODO: add the fetching listings list future here ->
+      builder: (context, snapshot) =>
+          snapshot.connectionState == ConnectionState.active
+              ? const Center(
+                  child: CircularProgressIndicator(),
+                )
+              : RefreshIndicator(
+                  //TODO: add the fetching listings list future here ->
+                  onRefresh: () async {},
+                  child: ListView.builder(
+                    itemBuilder: (context, index) {
+                      return ListingItem(
+                        id: listingsList[index].id,
+                        title: listingsList[index].title,
+                        dateTime: listingsList[index].dateTime,
+                        amount: listingsList[index].amount,
+                        itemList: listingsList[index].itemList,
+                      );
+                    },
+                    itemCount: listingsList.length,
+                  ),
+                ),
     );
   }
 }
