@@ -71,7 +71,6 @@ class ListingItem extends ConsumerWidget {
       onTap: () => _showListingDetails(id, context),
       child: SizedBox(
         height: deviceSize.height * 0.3,
-        width: deviceSize.width * 0.9,
         child: Card(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15),

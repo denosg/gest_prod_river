@@ -39,29 +39,41 @@ class ProductsListState extends ConsumerState<ProductsList> {
   Widget build(BuildContext context) {
     // watch the list changes
     final listingsList = ref.watch(listingListProvider);
+    // device size
+    final deviceSize = MediaQuery.of(context).size;
 
     return RefreshIndicator(
       onRefresh: () async => await fetchListings(),
       child: isLoading
-          ? ListView.builder(
-              itemBuilder: (context, index) => const ShimmerListing(),
-              itemCount: 4,
+          ? Center(
+              child: SizedBox(
+                width: deviceSize.width * 0.9,
+                child: ListView.builder(
+                  itemBuilder: (context, index) => const ShimmerListing(),
+                  itemCount: 4,
+                ),
+              ),
             )
           : listingsList.isEmpty
               ? const Center(
                   child: Text("There are no listings available."),
                 )
-              : ListView.builder(
-                  itemBuilder: (context, index) {
-                    return ListingItem(
-                      id: listingsList[index].id,
-                      title: listingsList[index].title,
-                      dateTime: listingsList[index].dateTime,
-                      amount: listingsList[index].amount,
-                      itemList: listingsList[index].itemList,
-                    );
-                  },
-                  itemCount: listingsList.length,
+              : Center(
+                  child: SizedBox(
+                    width: deviceSize.width * 0.9,
+                    child: ListView.builder(
+                      itemBuilder: (context, index) {
+                        return ListingItem(
+                          id: listingsList[index].id,
+                          title: listingsList[index].title,
+                          dateTime: listingsList[index].dateTime,
+                          amount: listingsList[index].amount,
+                          itemList: listingsList[index].itemList,
+                        );
+                      },
+                      itemCount: listingsList.length,
+                    ),
+                  ),
                 ),
     );
   }
