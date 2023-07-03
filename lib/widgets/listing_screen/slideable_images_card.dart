@@ -18,6 +18,10 @@ class _SlideableImagesCardState extends State<SlideableImagesCard> {
 
   @override
   Widget build(BuildContext context) {
+    // device sized
+    final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
+
     for (var item in widget.itemList) {
       photosList.add(item.photoUrl);
     }
@@ -26,7 +30,9 @@ class _SlideableImagesCardState extends State<SlideableImagesCard> {
       alignment: Alignment.center,
       children: [
         // carousel of images
-        Expanded(
+        SizedBox(
+          height: height * 0.15,
+          width: width * 0.9,
           child: CarouselSlider.builder(
             carouselController: _controller,
             options: CarouselOptions(
@@ -38,8 +44,12 @@ class _SlideableImagesCardState extends State<SlideableImagesCard> {
                   });
                 }),
             itemCount: widget.itemList.length,
-            itemBuilder: (context, index, realIndex) =>
-                Image.network(photosList[index]),
+            itemBuilder: (context, index, realIndex) => Image.network(
+              photosList[index],
+              width: double.infinity,
+              height: double.infinity,
+              fit: BoxFit.cover,
+            ),
           ),
         ),
         // the indicator of images

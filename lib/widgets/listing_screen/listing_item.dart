@@ -66,7 +66,8 @@ class ListingItem extends StatelessWidget {
       },
       // onTap shows the listing details screen based on the listing's id
       onTap: () => _showListingDetails(id, context),
-      child: SizedBox(
+      child: Container(
+        color: Colors.amber,
         height: deviceSize.height * 0.3,
         width: deviceSize.width * 0.9,
         child: Card(
