@@ -36,14 +36,14 @@ class ListingListNotifier extends StateNotifier<List<Listing>> {
             id: key,
             title: value['title'],
             dateTime: DateTime.parse(value['dateTime']),
-            amount: int.parse(value['amount']),
+            amount: value['amount'],
             itemList: (value['items'] as List<dynamic>).map((itemData) {
               return Item(
                 title: itemData['title'],
                 photoUrl: itemData['photoUrl'],
-                pricePaid: double.parse(itemData['pricePaid']),
-                priceMarket: double.parse(itemData['priceMarket']),
-                amountOfItem: int.parse(itemData['amount']),
+                pricePaid: double.parse(itemData['pricePaid'].toString()),
+                priceMarket: double.parse(itemData['priceMarket'].toString()),
+                amountOfItem: itemData['amount'],
               );
             }).toList(),
           );
