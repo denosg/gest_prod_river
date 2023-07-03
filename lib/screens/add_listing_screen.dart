@@ -196,9 +196,9 @@ class AddListingScreenState extends ConsumerState<AddListingScreen> {
                         ),
                       ),
                       // total amount paid money shown
-                      const TotalPaid(),
+                      TotalPaid(),
                       // total amount potential win money shown
-                      const TotalWin(),
+                      TotalWin(),
                     ],
                   ),
                 ),

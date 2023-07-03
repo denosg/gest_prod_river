@@ -10,8 +10,8 @@ class TotalWin extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     double width = MediaQuery.of(context).size.width;
 
-    final winMoney =
-        ref.read(itemListProvider.notifier).getMarketSum().toString();
+    final itemList = ref.watch(itemListProvider.notifier);
+    final winMoney = itemList.getMarketSum().toString();
 
     return Padding(
       padding: const EdgeInsets.all(8.0),

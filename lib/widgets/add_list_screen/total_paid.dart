@@ -10,8 +10,8 @@ class TotalPaid extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     double width = MediaQuery.of(context).size.width;
 
-    final paidMoney =
-        ref.read(itemListProvider.notifier).getPaidSum().toString();
+    final itemList = ref.watch(itemListProvider.notifier);
+    final paidMoney = itemList.getPaidSum().toString();
 
     return Padding(
       padding: const EdgeInsets.all(8.0),
