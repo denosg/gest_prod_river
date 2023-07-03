@@ -111,13 +111,12 @@ class AddListingScreenState extends ConsumerState<AddListingScreen> {
         amount: getAmountOfItmes(),
         itemList: itemList,
       );
-      //TODO: adding listing to cloud db logic here ->
+      //adding listing to cloud db logic here ->
       saveStateOfTextField(updatedListing);
       // adds listing in local memory ->
       ref.read(listingListProvider.notifier).addListingInList(_tempListing);
       // deletes the list from memory to show for the next listing input
       ref.read(itemListProvider.notifier).deleteList();
-      print(_tempListing.toString());
       //After uploading liting to db, the user is prompted the ListingsScreen
       Navigator.of(context)
           .pushReplacementNamed(ListingsOverviewScreen.routeName);
@@ -197,9 +196,9 @@ class AddListingScreenState extends ConsumerState<AddListingScreen> {
                         ),
                       ),
                       // total amount paid money shown
-                      TotalPaid(),
+                      const TotalPaid(),
                       // total amount potential win money shown
-                      TotalWin(),
+                      const TotalWin(),
                     ],
                   ),
                 ),

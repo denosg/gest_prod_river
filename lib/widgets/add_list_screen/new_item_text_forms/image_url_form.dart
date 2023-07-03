@@ -57,7 +57,6 @@ class _ImageUrlFormState extends State<ImageUrlForm> {
       final uploadImage = await getImage();
       if (uploadImage != null) {
         final imageUrl = await uploadImageToFirebase(uploadImage);
-        print('Image uploaded successfully. URL: $imageUrl');
         setState(() {
           finalImageUrl = imageUrl;
           isImageLoaded = true;
@@ -74,6 +73,7 @@ class _ImageUrlFormState extends State<ImageUrlForm> {
           widget.onSave(updatedItem);
         }
       } else {
+        // ignore: avoid_print
         print('No image selected.');
       }
     }

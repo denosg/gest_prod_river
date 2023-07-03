@@ -21,7 +21,7 @@ class _SlideableImagesCardState extends State<SlideableImagesCard> {
     // device sized
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
-
+    // adding the urls of the images in a list
     for (var item in widget.itemList) {
       photosList.add(item.photoUrl);
     }
@@ -46,17 +46,20 @@ class _SlideableImagesCardState extends State<SlideableImagesCard> {
                     });
                   }),
               itemCount: widget.itemList.length,
-              itemBuilder: (context, index, realIndex) => Image.network(
-                photosList[index],
-                width: height * 0.2,
-                height: height * 0.1,
-                fit: BoxFit.cover,
+              itemBuilder: (context, index, realIndex) => ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: Image.network(
+                  photosList[index],
+                  width: height * 0.2,
+                  height: height * 0.1,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
           ),
           // the indicator of images
           Positioned(
-            bottom: 10,
+            bottom: 0,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: List.generate(widget.itemList.length, (index) {

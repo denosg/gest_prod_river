@@ -49,9 +49,11 @@ class ListingListNotifier extends StateNotifier<List<Listing>> {
           fetchedListings.add(fetchedListing);
         });
         state = fetchedListings;
+        // ignore: avoid_print
         print('Listings fetched from Firebase successfully!');
       }
     } catch (error) {
+      // ignore: avoid_print
       print('Failed to fetch listings from Firebase: $error');
     }
   }
@@ -83,6 +85,7 @@ class ListingListNotifier extends StateNotifier<List<Listing>> {
 
     try {
       await newListingRef.set(newListingData);
+      // ignore: avoid_print
       print('Listing added to Firebase successfully!');
 
       // Update the state object of currentListing
@@ -98,8 +101,10 @@ class ListingListNotifier extends StateNotifier<List<Listing>> {
       updatedList.insert(0, updatedListing);
       state = updatedList;
 
+      // ignore: avoid_print
       print('Listing added in list with updated state object.');
     } catch (error) {
+      // ignore: avoid_print
       print('Failed to add listing to Firebase: $error');
     }
   }
@@ -116,6 +121,7 @@ class ListingListNotifier extends StateNotifier<List<Listing>> {
       try {
         // Delete the listing from the Firebase Cloud Database
         await databaseRef.child(id).remove();
+        // ignore: avoid_print
         print('Listing deleted from Firebase successfully!');
 
         // Remove the listing from the local memory state
@@ -123,8 +129,10 @@ class ListingListNotifier extends StateNotifier<List<Listing>> {
         updatedList.removeAt(listingIndex);
         state = updatedList;
 
+        // ignore: avoid_print
         print('Listing deleted from local memory state.');
       } catch (error) {
+        // ignore: avoid_print
         print('Failed to delete listing from Firebase: $error');
       }
     }
