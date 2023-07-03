@@ -1,4 +1,5 @@
 import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gest_prod_river/models/listing.dart';
 
@@ -109,6 +110,13 @@ class ListingListNotifier extends StateNotifier<List<Listing>> {
     }
   }
 
+  // get the image name from the url method ->
+  String getImageNameFromURL(String imageURL) {
+    Uri uri = Uri.parse(imageURL);
+    String imageName = uri.pathSegments.last;
+    return imageName;
+  }
+
   // deleteListing method for deleting a specific listing from cloud db + local memory ->
   void deleteListing(String id) async {
     DatabaseReference databaseRef =
@@ -123,6 +131,17 @@ class ListingListNotifier extends StateNotifier<List<Listing>> {
         await databaseRef.child(id).remove();
         // ignore: avoid_print
         print('Listing deleted from Firebase successfully!');
+
+        // Delete the image from the Firebase Storage
+        final storage = FirebaseStorage.instance;
+        // finds the listings with the corresponding id + deletes the images for each item
+        findById(id).itemList.forEach((item) async {
+          final imageName = getImageNameFromURL(item.photoUrl);
+          final reference = storage.ref().child(imageName);
+          await reference.delete();
+          // ignore: avoid_print
+          print('Image deleted from Firebase Storage successfully!');
+        });
 
         // Remove the listing from the local memory state
         final updatedList = [...state];

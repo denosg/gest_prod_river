@@ -63,6 +63,7 @@ class _ImageUrlFormState extends State<ImageUrlForm> {
         });
         // updates the widget with the image url
         if (finalImageUrl != null) {
+          print("imageUrl: $finalImageUrl");
           Item updatedItem = Item(
             title: widget.tempItem.title,
             photoUrl: finalImageUrl!,
