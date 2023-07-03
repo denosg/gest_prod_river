@@ -12,9 +12,9 @@ class SlideableImagesCard extends StatefulWidget {
 }
 
 class _SlideableImagesCardState extends State<SlideableImagesCard> {
-  int _current = 0;
   final CarouselController _controller = CarouselController();
   var photosList = <String>[];
+  int current = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -26,57 +26,61 @@ class _SlideableImagesCardState extends State<SlideableImagesCard> {
       photosList.add(item.photoUrl);
     }
 
-    return Stack(
-      alignment: Alignment.center,
-      children: [
-        // carousel of images
-        SizedBox(
-          height: height * 0.15,
-          width: width * 0.9,
-          child: CarouselSlider.builder(
-            carouselController: _controller,
-            options: CarouselOptions(
-                enlargeCenterPage: true,
-                aspectRatio: 2.0,
-                onPageChanged: (index, reason) {
-                  setState(() {
-                    _current = index;
-                  });
-                }),
-            itemCount: widget.itemList.length,
-            itemBuilder: (context, index, realIndex) => Image.network(
-              photosList[index],
-              width: double.infinity,
-              height: double.infinity,
-              fit: BoxFit.cover,
+    return Padding(
+      padding: const EdgeInsets.only(top: 8),
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          // carousel of images
+          SizedBox(
+            height: height * 0.15,
+            width: width * 0.9,
+            child: CarouselSlider.builder(
+              carouselController: _controller,
+              options: CarouselOptions(
+                  enlargeCenterPage: true,
+                  aspectRatio: 2.0,
+                  onPageChanged: (index, reason) {
+                    setState(() {
+                      current = index;
+                    });
+                  }),
+              itemCount: widget.itemList.length,
+              itemBuilder: (context, index, realIndex) => Image.network(
+                photosList[index],
+                width: height * 0.2,
+                height: height * 0.1,
+                fit: BoxFit.cover,
+              ),
             ),
           ),
-        ),
-        // the indicator of images
-        Positioned(
-          bottom: 10,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: photosList.asMap().entries.map((entry) {
-              return GestureDetector(
-                onTap: () => _controller.animateToPage(entry.key),
-                child: Container(
-                  width: 12.0,
-                  height: 12.0,
-                  margin: const EdgeInsets.symmetric(
-                      vertical: 8.0, horizontal: 4.0),
-                  decoration: BoxDecoration(
+          // the indicator of images
+          Positioned(
+            bottom: 10,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: List.generate(widget.itemList.length, (index) {
+                return GestureDetector(
+                  onTap: () => _controller.animateToPage(index),
+                  child: Container(
+                    width: 12.0,
+                    height: 12.0,
+                    margin: const EdgeInsets.symmetric(
+                        vertical: 8.0, horizontal: 4.0),
+                    decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       color: (Theme.of(context).brightness == Brightness.dark
                               ? Colors.white
                               : Colors.black)
-                          .withOpacity(_current == entry.key ? 0.9 : 0.4)),
-                ),
-              );
-            }).toList(),
+                          .withOpacity(current == index ? 0.9 : 0.4),
+                    ),
+                  ),
+                );
+              }).toList(),
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

@@ -26,8 +26,6 @@ class ListingListNotifier extends StateNotifier<List<Listing>> {
 
       Map<dynamic, dynamic>? data = event.snapshot.value as Map?;
 
-      // TODO: FIX PROBLEM: Failed to fetch listings from Firebase: type 'int' is not a subtype of type 'String'
-
       if (data != null) {
         List<Listing> fetchedListings = [];
 

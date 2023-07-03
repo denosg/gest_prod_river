@@ -31,22 +31,17 @@ class ProductsListState extends ConsumerState<ProductsList> {
       onRefresh: () async => await ref
           .read(listingListProvider.notifier)
           .fetchListingsFromDatabase(),
-      child: Container(
-        color: Colors.red,
-        height: height,
-        width: width,
-        child: ListView.builder(
-          itemBuilder: (context, index) {
-            return ListingItem(
-              id: listingsList[index].id,
-              title: listingsList[index].title,
-              dateTime: listingsList[index].dateTime,
-              amount: listingsList[index].amount,
-              itemList: listingsList[index].itemList,
-            );
-          },
-          itemCount: listingsList.length,
-        ),
+      child: ListView.builder(
+        itemBuilder: (context, index) {
+          return ListingItem(
+            id: listingsList[index].id,
+            title: listingsList[index].title,
+            dateTime: listingsList[index].dateTime,
+            amount: listingsList[index].amount,
+            itemList: listingsList[index].itemList,
+          );
+        },
+        itemCount: listingsList.length,
       ),
     );
   }

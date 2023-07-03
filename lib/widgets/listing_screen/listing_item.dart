@@ -31,7 +31,7 @@ class ListingItem extends StatelessWidget {
     final deviceSize = MediaQuery.of(context).size;
 
     //formatted date
-    String formattedDate = DateFormat('dd:MM:yyyy').format(dateTime);
+    String formattedDate = DateFormat('dd.MM.yyyy').format(dateTime);
     return InkWell(
       onLongPress: () async {
         try {
@@ -66,15 +66,14 @@ class ListingItem extends StatelessWidget {
       },
       // onTap shows the listing details screen based on the listing's id
       onTap: () => _showListingDetails(id, context),
-      child: Container(
-        color: Colors.amber,
+      child: SizedBox(
         height: deviceSize.height * 0.3,
         width: deviceSize.width * 0.9,
         child: Card(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15),
           ),
-          elevation: 5,
+          elevation: 8,
           margin: const EdgeInsets.all(15),
           child: Column(
             children: [
