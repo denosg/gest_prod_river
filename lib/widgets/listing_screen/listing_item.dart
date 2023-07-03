@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gest_prod_river/models/item.dart';
+import 'package:gest_prod_river/providers/listing_list_provider.dart';
 import 'package:gest_prod_river/widgets/listing_screen/slideable_images_card.dart';
 import 'package:intl/intl.dart';
 
 import '../../screens/listing_detail_screen.dart';
 
-class ListingItem extends StatelessWidget {
+class ListingItem extends ConsumerWidget {
   final String id;
   final String title;
   final DateTime dateTime;
@@ -26,7 +28,7 @@ class ListingItem extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final scaffoldMessenger = ScaffoldMessenger.of(context);
     final deviceSize = MediaQuery.of(context).size;
 
@@ -50,7 +52,8 @@ class ListingItem extends StatelessWidget {
                   ),
                   TextButton(
                     onPressed: () {
-                      // TODO: delete logic here
+                      // delete listing method ->
+                      ref.read(listingListProvider.notifier).deleteListing(id);
                       Navigator.of(context).pop();
                     },
                     child: const Text('Yes'),
@@ -85,6 +88,7 @@ class ListingItem extends StatelessWidget {
                 children: [
                   // title + date
                   Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       // the title of the listing
                       Padding(

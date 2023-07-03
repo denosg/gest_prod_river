@@ -42,7 +42,7 @@ class _PriceMarketFormState extends State<PriceMarketForm> {
                   hintText: 'Price Sell',
                   hintStyle: TextStyle(color: Colors.black54),
                 ),
-                textInputAction: TextInputAction.next,
+                textInputAction: TextInputAction.done,
                 keyboardType: TextInputType.number,
                 // gets the introduced string
                 onChanged: (enteredString) {
